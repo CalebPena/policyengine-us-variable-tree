@@ -45,7 +45,6 @@ def nodes_and_edges(output: str):
     for i in range(len(lines) - 1):
         line = lines[i]
         if "=" not in line or f"<{YEAR}" not in line:
-            print(line)
             continue
 
         variable = line.split("<")[0].strip()
@@ -59,7 +58,9 @@ def nodes_and_edges(output: str):
         nodes.add(variable)
 
         if len(parent_stack):
-            edges.add((parent_stack[-1], variable))
+            # because of month variables, there can be variables nested under themselves
+            if parent_stack[-1] != variable:
+                edges.add((parent_stack[-1], variable))
 
         if current_indent > next_indent:
             parent_stack = parent_stack[:-(current_indent - next_indent)]
