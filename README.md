@@ -1,3 +1,3 @@
 # policyengine-us-variable-tree
 
-Creat tree of nodes
+Create tree of variable nodes
