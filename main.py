@@ -127,5 +127,4 @@ for node in nodes:
 for edge in edges:
     net.add_edge(edge[0], edge[1])
 
-# net.show_buttons(filter_=['physics'])
 net.write_html("nx.html")
