@@ -5,6 +5,7 @@ import yaml
 
 '''
 run using "python main.py -v [variable_name]
+then open the nx.html file in the browser
 '''
 
 
@@ -108,7 +109,7 @@ Network.set_options(
     '''
     const options = {
         "physics": {
-            "barnesHut": {
+            "repulsion": {
                 "theta": 1,
                 "centralGravity": 0,
                 "springLength": 255,
@@ -116,10 +117,11 @@ Network.set_options(
                 "damping": 1,
                 "avoidOverlap": 1
             },
-            "minVelocity": 0.75
+            "minVelocity": 0.75,
+            "solver": "repulsion"
         }
     }
-    '''
+    ''',
 )
 
 for node in nodes:
