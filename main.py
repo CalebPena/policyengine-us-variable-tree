@@ -11,8 +11,6 @@ then open the nx.html file in the browser
 
 YEAR = 2024
 
-year_str = f"<{YEAR},"  # String to match the year in the output
-
 
 def create_yaml_file(variable_name):
     data = [
