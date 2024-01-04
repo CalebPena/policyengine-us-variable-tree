@@ -11,12 +11,6 @@ then open the nx.html file in the browser
 
 YEAR = 2024
 
-EXCLUDE_VARS = {
-    "employment_income_before_lsr",
-    "employment_income_behavioral_response",
-    "spm_unit_size",
-}
-
 year_str = f"<{YEAR},"  # String to match the year in the output
 
 
@@ -45,20 +39,16 @@ def nodes_and_edges(output: str):
     nodes = set()
     leaf_nodes = set()
     non_leaf_nodes = set()
-    edges = []
+    edges = set()
     parent_stack = []
 
     for i in range(len(lines) - 1):
         line = lines[i]
-        if "=" not in line or f"<{YEAR}," not in line:
+        if "=" not in line or f"<{YEAR}" not in line:
+            print(line)
             continue
 
-        variable = line.split("=")[0].strip()
-        # Remove the year and default tag
-        variable = variable.replace(year_str, "").replace("(default)>", "").strip()
-
-        if variable in EXCLUDE_VARS:
-            continue
+        variable = line.split("<")[0].strip()
 
         current_indent = get_indent(line)
 
@@ -69,10 +59,10 @@ def nodes_and_edges(output: str):
         nodes.add(variable)
 
         if len(parent_stack):
-            edges.append((parent_stack[-1], variable))
+            edges.add((parent_stack[-1], variable))
 
         if current_indent > next_indent:
-            parent_stack = parent_stack[: next_indent - 2]
+            parent_stack = parent_stack[:-(current_indent - next_indent)]
         elif current_indent < next_indent:
             parent_stack.append(variable)
 
