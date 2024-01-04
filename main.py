@@ -4,7 +4,10 @@ import argparse
 import yaml
 
 '''
-run using "python main.py -v [variable_name]
+run using "python main.py -v [variable_name]"
+
+optional -s flag to specify a state
+
 then open the nx.html file in the browser
 '''
 
@@ -12,12 +15,14 @@ then open the nx.html file in the browser
 YEAR = 2024
 
 
-def create_yaml_file(variable_name):
+def create_yaml_file(variable_name, state_code='CO'):
     data = [
         {
             "name": "Scenario",
             "period": YEAR,
-            "input": {},
+            "input": {
+                "state_code": state_code.upper()
+            },
             "output": {variable_name: 0},
         }
     ]
@@ -80,10 +85,11 @@ def get_indent(line: str):
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-v", "--variable", help="variable name")
+parser.add_argument("-s", "--state-code", help="set the state code", default='CO')
 
 args = parser.parse_args()
 
-create_yaml_file(args.variable)
+create_yaml_file(args.variable, args.state_code)
 output = run_policy_engine()
 
 # Extract and display unique leaf nodes
