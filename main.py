@@ -29,7 +29,7 @@ def create_yaml_file(variable_name):
 def run_policy_engine():
     command = "policyengine-core test test.yaml -c policyengine_us -v"
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
-    return result.stdout if result.returncode == 0 else result.stderr
+    return result.stdout
 
 
 def nodes_and_edges(output: str):
@@ -40,8 +40,7 @@ def nodes_and_edges(output: str):
     edges = set()
     parent_stack = []
 
-    for i in range(len(lines) - 1):
-        line = lines[i]
+    for i, line in enumerate(lines):
         if "=" not in line or f"<{YEAR}" not in line:
             continue
 
