@@ -3,6 +3,10 @@ import subprocess
 import argparse
 import yaml
 
+'''
+run using "python main.py -v [variable_name]
+'''
+
 
 YEAR = 2024
 
