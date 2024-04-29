@@ -2,6 +2,8 @@ from pyvis.network import Network
 import subprocess
 import argparse
 import yaml
+import webbrowser
+import os
 
 '''
 run using "python main.py -v [variable_name]"
@@ -127,4 +129,8 @@ for node in nodes:
 for edge in edges:
     net.add_edge(edge[0], edge[1])
 
-net.write_html("nx.html")
+HTML_FILE = 'nx.html'
+net.write_html(HTML_FILE)
+
+webbrowser.open('file://' + os.path.realpath(HTML_FILE))
+
